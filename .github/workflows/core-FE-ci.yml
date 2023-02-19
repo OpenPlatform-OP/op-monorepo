@@ -2,11 +2,15 @@ name: Core FE CI
 
 on:
   push:
-    branches: ['master']
-  pull_request:
-    branches: ['master']
+    branches:
+      - 'master'
     paths:
-      - apps/web-app
+      - 'apps/web-app/**'
+  pull_request:
+    branches:
+      - 'master'
+    paths:
+      - 'apps/web-app/**'
 
 jobs:
   CI-Stage:
