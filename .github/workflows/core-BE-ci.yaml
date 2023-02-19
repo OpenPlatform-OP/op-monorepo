@@ -1,0 +1,28 @@
+name: Core BE CI
+
+on:
+  push:
+    branches: ['master']
+  pull_request:
+    branches: ['master']
+    paths:
+      - apps/web-api
+
+jobs:
+  CI-Stage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to project
+        uses: actions/checkout@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7.18.2
+      - name: Install package
+        run: pnpm install
+      - name: Lint Stage
+        run: pnpm lint-api
+      - name: Test Stage
+        run: pnpm test-api
+      - name: Build Stage
+        run: pnpm build-api
