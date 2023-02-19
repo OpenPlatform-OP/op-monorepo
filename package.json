@@ -9,7 +9,11 @@
     "build-app": "nx run web-app:build:production",
     "build-api": "nx run web-api:build:production",
     "start-app": "cd dist/apps/web-app && next start",
-    "start-api": "node dist/apps/web-api/main.js"
+    "start-api": "node dist/apps/web-api/main.js",
+    "lint-app": "nx run web-app:lint",
+    "lint-api": "nx run web-api:lint",
+    "test-app": "nx run web-app:test",
+    "test-api": "nx run web-api:test"
   },
   "private": true,
   "dependencies": {
