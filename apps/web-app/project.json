@@ -13,10 +13,11 @@
         "outputPath": "dist/apps/web-app"
       },
       "configurations": {
-        "development": {
-          "outputPath": "apps/web-app"
-        },
-        "production": {}
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false
+        }
       }
     },
     "serve": {
@@ -29,11 +30,11 @@
       "configurations": {
         "development": {
           "buildTarget": "web-app:build:development",
-          "dev": true
+          "port": 3000
         },
         "production": {
           "buildTarget": "web-app:build:production",
-          "dev": false
+          "port": 3000
         }
       }
     },
