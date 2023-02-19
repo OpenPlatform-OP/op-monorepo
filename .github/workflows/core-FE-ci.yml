@@ -19,7 +19,7 @@ jobs:
         with:
           version: 7.18.2
       - name: Install package
-        uses: pnpm install
+        run: pnpm install
       - name: Lint Stage
         run: pnpm lint-app
       - name: Test Stage
