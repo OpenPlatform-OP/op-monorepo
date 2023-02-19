@@ -30,3 +30,8 @@ jobs:
         run: pnpm test-app
       - name: Build Stage
         run: pnpm build-app
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: web-app-artifact
+          path: dist/web-app # default retention 90 days
