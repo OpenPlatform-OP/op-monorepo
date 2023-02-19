@@ -8,6 +8,6 @@ export class AppController {
 
   @Get()
   getEnv() {
-    return this._app.getEnv();
+    return { Environment: this._app.getEnv() };
   }
 }
