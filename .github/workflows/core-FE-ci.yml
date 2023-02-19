@@ -9,8 +9,8 @@ on:
   pull_request:
     branches:
       - 'master'
-    # paths:
-    #   - 'apps/web-app/**'
+    paths:
+      - 'apps/web-app/**'
 
 jobs:
   CI-Stage:
