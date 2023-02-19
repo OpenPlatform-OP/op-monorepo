@@ -1,4 +1,4 @@
-import theme from '@/config/mui';
+import theme from '@/configs/mui';
 import { createTheme, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Head from 'next/head';

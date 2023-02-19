@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "op-frontend",
+  "npmScope": "op-monorepo",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
