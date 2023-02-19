@@ -3,5 +3,5 @@ import IEnvironment from '../app/interfaces/environment.interface';
 
 export const environment: IEnvironment = {
   env: Env.PROD,
-  port: 3000,
+  port: 5000,
 };

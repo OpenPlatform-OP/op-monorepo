@@ -3,8 +3,13 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "run-app": "npx nx run web-app:serve",
-    "build-app": "npx nx run web-app:build"
+    "run-all": "nx run-many --target=serve",
+    "run-app": "nx run web-app:serve",
+    "run-api": "nx run web-api:serve",
+    "build-app": "nx run web-app:build:production",
+    "build-api": "nx run web-api:build:production",
+    "start-app": "cd dist/apps/web-app && next start",
+    "start-api": "node dist/apps/web-api/main.js"
   },
   "private": true,
   "dependencies": {
