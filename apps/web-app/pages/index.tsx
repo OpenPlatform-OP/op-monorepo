@@ -7,14 +7,7 @@ const Index: NextPageWithProps = () => {
     <Box>
       <Button>
         <Link href="/home">
-          <Typography
-            variant="h2"
-            sx={{
-              backgroundColor: 'white',
-            }}
-          >
-            Home Page
-          </Typography>
+          <Typography variant="h2">Home Page</Typography>
         </Link>
       </Button>
     </Box>
