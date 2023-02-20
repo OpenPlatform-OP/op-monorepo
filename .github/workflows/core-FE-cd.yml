@@ -17,12 +17,12 @@ jobs:
         with:
           workflow: core-FE-ci.yml
           workflow_conclusion: success
-      # - name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v2
-      # - name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v1
-      #   with:
-      #     version: v0.7.0
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.7.0
       - name: Login to Gitlab Registry
         uses: docker/login-action@v2
         with:
@@ -30,19 +30,10 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_TOKEN }}
           dockerfile: apps/web-app/Dockerfile
-      - name: 'Docker Build'
-        run: |-
-          docker build \
-            -t ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_FE }} \
-            -f ./web-app-artifact/Dockerfile \
-            ./web-app-artifact
-      - name: 'Docker Push'
-        run: |-
-          docker push ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_FE }}
-      # - name: Build and push
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #     file: ./web-app-artifact/Dockerfile
-      #     context: ./web-app-artifact
-      #     push: true
-      #     tags: ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_FE }}
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          file: ./web-app-artifact/apps/web-app/Dockerfile
+          context: ./web-app-artifact
+          push: true
+          tags: ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_FE }}
