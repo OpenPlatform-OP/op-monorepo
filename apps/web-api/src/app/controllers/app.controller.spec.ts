@@ -25,7 +25,7 @@ describe('AppController', () => {
   describe('get env', () => {
     it('should return Env name', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getEnv()).toEqual({ Environment: environment.env });
+      expect(appController.getEnv()).toEqual({ Env: environment.env });
     });
   });
 });
