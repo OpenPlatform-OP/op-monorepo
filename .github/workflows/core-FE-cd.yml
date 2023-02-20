@@ -28,6 +28,8 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_TOKEN }}
           dockerfile: apps/web-app/Dockerfile
+      - name: List
+        run: ls
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
