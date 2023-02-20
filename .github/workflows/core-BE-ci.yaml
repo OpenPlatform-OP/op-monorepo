@@ -1,16 +1,16 @@
-name: Core FE CI
+name: Core BE CI
 
 on:
   push:
     branches:
       - 'master'
     paths:
-      - 'apps/web-app/**'
+      - 'apps/web-api/**'
   pull_request:
     branches:
       - 'master'
     paths:
-      - 'apps/web-app/**'
+      - 'apps/web-api/**'
 
 jobs:
   CI-Stage:
@@ -25,15 +25,8 @@ jobs:
       - name: Install package
         run: pnpm install
       - name: Lint Stage
-        run: pnpm lint-app
+        run: pnpm lint-api
       - name: Test Stage
-        run: pnpm test-app
+        run: pnpm test-api
       - name: Build Stage
-        run: pnpm build-app
-      - name: 'Upload Artifact'
-        uses: actions/upload-artifact@v3
-        with:
-          name: web-app-artifact
-          path: | # default retention 90 days
-            .
-            !node_modules
+        run: pnpm build-api
