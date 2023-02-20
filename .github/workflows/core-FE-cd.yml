@@ -28,11 +28,10 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_TOKEN }}
           dockerfile: apps/web-app/Dockerfile
-      - name: List
-        run: ls
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: .
+          file: ./web-app-artifact/Dockerfile
+          context: ./web-app-artifact
           push: true
           tags: ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_FE }}
