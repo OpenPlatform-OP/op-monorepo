@@ -34,4 +34,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: web-app-artifact
-          path: . # default retention 90 days
+          path: | # default retention 90 days
+            .
+            !node_modules
