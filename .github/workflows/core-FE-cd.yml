@@ -2,8 +2,8 @@ name: Core FE CD
 
 on:
   schedule:
-    # trigger everyday 00:00 am
-    - cron: '0 0 0 1/1 * ? *'
+    # trigger everyday 01:00 am
+    - cron: '0 1 * * *'
 
 jobs:
   CD-Stage:
