@@ -30,3 +30,10 @@ jobs:
         run: pnpm test-api
       - name: Build Stage
         run: pnpm build-api
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: web-api-artifact
+          path: | # default retention 90 days
+            .
+            !node_modules
