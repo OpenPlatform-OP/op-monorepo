@@ -1,28 +1,21 @@
-FROM node:16 AS builder
-
-ARG NODE_ENV
+FROM node:18-alpine3.16 AS base
 
 WORKDIR /app
 
 COPY package.json .
 COPY pnpm-lock.yaml .
 
+RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
+
 RUN npm install -g pnpm
-RUN pnpm install
+RUN pnpm install --prod
 
-COPY . .
+COPY dist/apps/web-api .
 
-RUN pnpm build-api
-
-#
-
-FROM node:16
+FROM node:18-alpine3.16
 
 WORKDIR /app
 
-COPY --from=builder /app/node_modules /app/node_modules
-COPY --from=builder /app/dist/apps/web-api .
-COPY --from=builder /app/package.json .
-COPY --from=builder /app/pnpm-lock.yaml .
+COPY --from=base /app .
 
 CMD ["node", "main.js"]
