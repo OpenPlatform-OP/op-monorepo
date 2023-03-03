@@ -30,4 +30,4 @@ jobs:
           file: ./web-app-artifact/apps/web-app/Dockerfile
           context: ./web-app-artifact
           push: true
-          tags: ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_FE }}:${{ github.sha }}
+          tags: ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_FE }}:${{ github.sha::7 }}

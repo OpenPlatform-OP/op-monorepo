@@ -25,11 +25,11 @@ jobs:
       - name: Install package
         run: pnpm install
       - name: Lint Stage
-        run: pnpm lint-app
+        run: pnpm lint:app
       - name: Test Stage
-        run: pnpm test-app
+        run: pnpm test:app
       - name: Build Stage
-        run: pnpm build-app
+        run: pnpm build:app
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v3
         with:

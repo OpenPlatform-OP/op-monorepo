@@ -3,17 +3,17 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "run-all": "nx run-many --target=serve",
-    "run-app": "nx run web-app:serve",
-    "run-api": "nx run web-api:serve",
-    "build-app": "nx run web-app:build:production",
-    "build-api": "nx run web-api:build:production",
+    "dev:all": "nx run-many --target=serve --projects=web-app,web-api",
+    "dev:app": "nx run web-app:serve",
+    "dev:api": "nx run web-api:serve",
+    "build:app": "nx run web-app:build:production",
+    "build:api": "nx run web-api:build:production",
     "start-app": "cd dist/apps/web-app && next start",
     "start-api": "node dist/apps/web-api/main.js",
-    "lint-app": "nx run web-app:lint",
-    "lint-api": "nx run web-api:lint",
-    "test-app": "nx run web-app:test",
-    "test-api": "nx run web-api:test"
+    "lint:app": "nx run web-app:lint",
+    "lint:api": "nx run web-api:lint",
+    "test:app": "nx run web-app:test",
+    "test:api": "nx run web-api:test"
   },
   "private": true,
   "dependencies": {
