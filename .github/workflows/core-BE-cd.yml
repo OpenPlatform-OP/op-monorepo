@@ -14,6 +14,10 @@ jobs:
         with:
           workflow: core-BE-ci.yml
           workflow_conclusion: success
+      - uses: benjlevesque/short-sha@v2.1
+        id: short-sha
+        with:
+          length: 7
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -30,4 +34,4 @@ jobs:
           file: ./web-api-artifact/apps/web-api/Dockerfile
           context: ./web-api-artifact
           push: true
-          tags: ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_BE }}:${{ github.sha::7 }}
+          tags: ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_BE }}:${{ steps.short-sha.outputs.sha }}
