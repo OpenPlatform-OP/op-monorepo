@@ -3,7 +3,6 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Head from 'next/head';
 
-import '../styles/styles.css';
 import '../styles/reset.css';
 import AppLayout from '@/layouts/AppLayout';
 import { AppProps } from 'next/app';
