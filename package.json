@@ -12,6 +12,7 @@
     "start-api": "node dist/apps/web-api/main.js",
     "lint:app": "nx run web-app:lint",
     "lint:api": "nx run web-api:lint",
+    "test:coverage": "pnpm jest --coverage",
     "test:app": "nx run web-app:test",
     "test:api": "nx run web-api:test"
   },
