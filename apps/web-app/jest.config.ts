@@ -9,7 +9,6 @@ const config: Config = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/apps/web-app',
-  collectCoverageFrom: ['**/*.ts{x}', '!**/environments/*.ts'],
 };
 
 export default config;

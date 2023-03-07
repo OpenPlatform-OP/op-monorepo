@@ -14,7 +14,6 @@ const config: Config = {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/blog-api',
-  collectCoverageFrom: ['**/*.ts', '!**/environments/*.ts'],
 };
 
 export default config;
