@@ -1,5 +1,6 @@
-/* eslint-disable */
-export default {
+import { Config } from 'jest';
+
+const config: Config = {
   displayName: 'blog-api',
   preset: '../../jest.preset.js',
   globals: {
@@ -13,4 +14,7 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/blog-api',
+  collectCoverageFrom: ['**/*.ts', '!**/environments/*.ts'],
 };
+
+export default config;
