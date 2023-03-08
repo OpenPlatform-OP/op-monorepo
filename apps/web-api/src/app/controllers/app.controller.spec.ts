@@ -28,4 +28,9 @@ describe('AppController', () => {
       expect(appController.getEnv()).toEqual({ Env: environment.env });
     });
   });
+
+  it('should return test data', () => {
+    const appController = app.get<AppController>(AppController);
+    expect(appController.getTestData()).toBe('test');
+  });
 });
