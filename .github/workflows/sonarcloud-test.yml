@@ -23,7 +23,7 @@ jobs:
       - name: Install package
         run: pnpm install
       - name: Test and coverage
-        run: pnpm jest --coverage
+        run: pnpm run test
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

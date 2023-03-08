@@ -52,7 +52,10 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/web-api/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "codeCoverage": true,
+        "coverageDirectory": "coverage/apps/web-api",
+        "coverageReporters": ["lcov", "html"]
       }
     }
   },
