@@ -10,4 +10,9 @@ export class AppController {
   getEnv() {
     return { Env: this._app.getEnv() };
   }
+
+  @Get()
+  getTestData(): string {
+    return 'test';
+  }
 }
