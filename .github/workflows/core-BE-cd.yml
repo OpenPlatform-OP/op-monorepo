@@ -2,19 +2,20 @@ name: Core BE CD
 
 on:
   schedule:
-    # trigger everyday 02:00 am UTC+8
-    - cron: '0 18 * * *'
+    # trigger everyday 06:00 am UTC+8
+    - cron: '0 22 * * *'
 
 jobs:
-  CD-Stage:
+  Build-Image-Stage:
     runs-on: ubuntu-latest
     steps:
-      - name: Download Artifact
+      - name: Download artifact
         uses: dawidd6/action-download-artifact@v2
         with:
           workflow: core-BE-ci.yml
           workflow_conclusion: success
-      - uses: benjlevesque/short-sha@v2.1
+      - name: Get short sha
+        uses: benjlevesque/short-sha@v2.1
         id: short-sha
         with:
           length: 7
@@ -22,16 +23,55 @@ jobs:
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      - name: Login to Gitlab Registry
+      - name: Login to Gitlab registry
         uses: docker/login-action@v2
         with:
           registry: ${{ vars.REGISTRY_HOST }}
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_TOKEN }}
-      - name: Build and push
+      - name: Build and push image
         uses: docker/build-push-action@v4
         with:
           file: ./web-api-artifact/apps/web-api/Dockerfile
           context: ./web-api-artifact
           push: true
           tags: ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_BE }}:${{ steps.short-sha.outputs.sha }}
+  Deploy-Image-Stage:
+    runs-on: ubuntu-latest
+    needs: Build-Image-Stage
+    steps:
+      - name: Get short sha
+        uses: benjlevesque/short-sha@v2.1
+        id: short-sha
+        with:
+          length: 7
+      - name: Configure ssh
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SERVER_SSH_KEY" > ~/.ssh/github-actions-key
+          chmod 600 ~/.ssh/github-actions-key
+          cat >>~/.ssh/config <<END
+          Host ec2
+            HostName $SERVER_SSH_HOST
+            User $SERVER_SSH_USER
+            IdentityFile ~/.ssh/github-actions-key
+            StrictHostKeyChecking no
+          END
+        env:
+          SERVER_SSH_HOST: ${{ secrets.SERVER_SSH_HOST}}
+          SERVER_SSH_USER: ${{ secrets.SERVER_SSH_USER}}
+          SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+      - name: Install ssh
+        run: |
+          apt-get update
+          apt-get -y install openssh-client
+      - name: Server login docker
+        run: ssh ec2 'docker login ${{ vars.REGISTRY_HOST }} -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_TOKEN }}'
+      - name: Server pull new image
+        run: ssh ec2 'docker pull ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_BE }}:${{ steps.short-sha.outputs.sha }}'
+      - name: Server remove previous container
+        run: ssh ec2 'docker rm -f ${{ vars.REGISTRY_PROJECT_CORE_BE }}'
+      - name: Server start container
+        run: ssh ec2 'docker run -it -d --name ${{ vars.REGISTRY_PROJECT_CORE_BE }} -p 3001:4500 ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_BE }}:${{ steps.short-sha.outputs.sha }}'
+      - name: Server clear not-using image
+        run: ssh ec2 'docker image prune -a'

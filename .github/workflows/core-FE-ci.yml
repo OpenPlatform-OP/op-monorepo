@@ -29,16 +29,16 @@ jobs:
           cache: 'pnpm'
       - name: Install nodejs package
         run: pnpm install
-      - name: Lint Stage
+      - name: Lint Code
         run: pnpm lint:app
-      - name: Test Stage
+      - name: Test Code
         run: pnpm test:app
-      - name: Build Stage
+      - name: Build production code
         run: pnpm build:app
-      - name: 'Upload Artifact'
+      - name: 'Upload artifact'
         uses: actions/upload-artifact@v3
         with:
           name: web-app-artifact
-          path: | # default retention 90 days
+          path: |
             .
             !node_modules
