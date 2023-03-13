@@ -21,7 +21,7 @@ describe('AppService', () => {
     service = app.get<AppService>(AppService);
   });
 
-  describe('getEnv', () => {
+  describe('get env', () => {
     it('should return Env name', () => {
       expect(service.getEnv()).toEqual(environment.env);
     });

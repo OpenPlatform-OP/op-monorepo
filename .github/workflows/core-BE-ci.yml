@@ -22,18 +22,23 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 7.18.2
-      - name: Install package
+      - name: Get pnpm cache
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+      - name: Install nodejs package
         run: pnpm install
-      - name: Lint Stage
+      - name: Lint code
         run: pnpm lint:api
-      - name: Test Stage
+      - name: Test code
         run: pnpm test:api
-      - name: Build Stage
+      - name: Build production code
         run: pnpm build:api
-      - name: 'Upload Artifact'
+      - name: 'Upload artifact'
         uses: actions/upload-artifact@v3
         with:
           name: web-api-artifact
-          path: | # default retention 90 days
+          path: |
             .
             !node_modules
