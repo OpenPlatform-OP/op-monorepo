@@ -18,11 +18,16 @@ jobs:
     steps:
       - name: Checkout to project
         uses: actions/checkout@v3
-      - name: Install pnpm
+      - name: Set up pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 7.18.2
-      - name: Install package
+      - name: Get pnpm cache
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+      - name: Install nodejs package
         run: pnpm install
       - name: Lint Stage
         run: pnpm lint:app
