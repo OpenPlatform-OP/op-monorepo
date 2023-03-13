@@ -13,6 +13,6 @@ export class AppController {
 
   @Get()
   getTestData(): string {
-    return 'test';
+    return 'test!';
   }
 }
