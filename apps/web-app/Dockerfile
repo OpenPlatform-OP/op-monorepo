@@ -12,7 +12,9 @@ RUN pnpm install
 
 COPY dist/apps/web-app .
 
-FROM node:18-alpine3.16
+FROM node:18-alpine3.16 AS runner
+
+ENV HOST 0.0.0.0
 
 WORKDIR /app
 

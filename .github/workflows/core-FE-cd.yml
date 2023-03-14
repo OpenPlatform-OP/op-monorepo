@@ -61,10 +61,10 @@ jobs:
           SERVER_SSH_HOST: ${{ secrets.SERVER_SSH_HOST}}
           SERVER_SSH_USER: ${{ secrets.SERVER_SSH_USER}}
           SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
-      - name: Install ssh
-        run: |
-          apt-get update
-          apt-get -y install openssh-client
+      # - name: Install ssh
+      #   run: |
+      #     apt-get update
+      #     apt-get -y install openssh-client
       - name: Server login docker
         run: ssh ec2 'docker login ${{ vars.REGISTRY_HOST }} -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_TOKEN }}'
       - name: Server pull new image
