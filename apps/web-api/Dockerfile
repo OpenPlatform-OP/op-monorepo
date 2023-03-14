@@ -12,7 +12,7 @@ RUN pnpm install --prod
 
 COPY dist/apps/web-api .
 
-FROM node:18-alpine3.16
+FROM node:18-alpine3.16 AS runner
 
 WORKDIR /app
 
