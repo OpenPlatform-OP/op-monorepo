@@ -74,4 +74,4 @@ jobs:
       - name: Server start container
         run: ssh ec2 'docker run -it -d --name ${{ vars.REGISTRY_PROJECT_CORE_FE }} -p 3000:3000 ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_FE }}:${{ steps.short-sha.outputs.sha }}'
       - name: Server clear not-using image
-        run: ssh ec2 'docker image prune -a'
+        run: ssh ec2 'docker image prune -a -f'
