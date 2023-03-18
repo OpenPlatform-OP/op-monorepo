@@ -18,4 +18,8 @@ WORKDIR /app
 
 COPY --from=base /app .
 
+ENV NODE_ENV=production
+ENV PORT=4500
+ENV ENV=PROD
+
 CMD ["node", "main.js"]
