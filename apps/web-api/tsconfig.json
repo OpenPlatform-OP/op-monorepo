@@ -9,5 +9,11 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["apps/web-api/*"]
+    }
+  }
 }
