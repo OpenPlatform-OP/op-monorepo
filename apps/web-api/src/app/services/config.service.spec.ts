@@ -5,8 +5,8 @@ import { ConfigModule } from '@nestjs/config';
 import configuration from '../configuration';
 import { Env } from '../enums/env.enum';
 
-describe('AppService', () => {
-  let service: AppService;
+describe('AppConfig', () => {
+  let config: AppConfig;
 
   beforeAll(async () => {
     const app = await Test.createTestingModule({
@@ -18,18 +18,14 @@ describe('AppService', () => {
       providers: [AppConfig, AppService],
     }).compile();
 
-    service = app.get<AppService>(AppService);
+    config = app.get<AppConfig>(AppConfig);
   });
 
-  describe('getData', () => {
-    it('should return "Welcome to web-api!"', () => {
-      expect(service.getData()).toEqual({ message: 'Welcome to web-api!' });
-    });
-  });
-
-  describe('getEnvName', () => {
-    it('should return Env name', () => {
-      expect(Object.values(Env)).toContain(service.getEnvName());
+  describe('getConfig', () => {
+    it('should return env config', () => {
+      const configData = config.getConfig();
+      expect(Object.values(Env)).toContain(configData.env);
+      expect(configData.port).toBeTruthy();
     });
   });
 });

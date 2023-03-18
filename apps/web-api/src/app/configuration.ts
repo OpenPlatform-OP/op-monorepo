@@ -1,15 +1,11 @@
-import { environment } from './../environments/environment';
+import { Env } from './enums/env.enum';
+import { Config } from './interfaces/config.interface';
 
-export enum ConfigKey {
-  ENV = 'ENV',
-  PORT = 'PORT',
-}
-
-const configuration = (): Record<ConfigKey, unknown> => {
-  return {
-    ENV: environment.env,
-    PORT: environment.port,
-  };
-};
+const configuration = (): { config: Config } => ({
+  config: {
+    env: (process.env.ENV as Env) || Env.LOCAL,
+    port: parseInt(process.env.PORT, 10) || 3000,
+  },
+});
 
 export default configuration;
