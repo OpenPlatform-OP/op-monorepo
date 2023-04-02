@@ -3,3 +3,5 @@ jest.mock('next/router', () => ({
     push: () => null,
   })),
 }));
+
+export {};
