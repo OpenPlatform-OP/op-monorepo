@@ -2,13 +2,13 @@ import CookieKey from '@/enums/cookieKey';
 import cookie from 'js-cookie';
 import { useMemo } from 'react';
 
-interface cookieOperator<T> {
+interface CookieOperator<T> {
   get: () => T;
   set: (value: T) => void;
   remove: () => void;
 }
 
-const generator = <T,>(key: CookieKey): cookieOperator<T> => {
+const generator = <T,>(key: CookieKey): CookieOperator<T> => {
   return {
     get() {
       return JSON.parse(cookie.get(key)) as T;

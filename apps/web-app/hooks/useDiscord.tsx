@@ -28,7 +28,7 @@ const useDiscord = (config: DiscordOAuthConfig) => {
   const getAccessToken = useMemo(
     () => async (code: string) => {
       const { access_token } = await oauth.tokenRequest({
-        code: code as string,
+        code,
         scope: 'guilds',
         grantType: 'authorization_code',
       });
