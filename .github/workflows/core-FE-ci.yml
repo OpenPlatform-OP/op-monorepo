@@ -6,11 +6,13 @@ on:
       - 'master'
     paths:
       - 'apps/web-app/**'
+      - 'libs/base-ui/**'
   pull_request:
     branches:
       - 'master'
     paths:
       - 'apps/web-app/**'
+      - 'libs/base-ui/**'
 
 jobs:
   CI-Stage:

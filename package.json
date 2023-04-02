@@ -15,7 +15,8 @@
     "test": "nx run-many --target=test",
     "test:coverage": "pnpm jest --coverage",
     "test:app": "nx run web-app:test",
-    "test:api": "nx run web-api:test"
+    "test:api": "nx run web-api:test",
+    "test:base-ui": "nx run base-ui:test"
   },
   "private": true,
   "dependencies": {
@@ -28,8 +29,11 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nrwl/next": "15.4.5",
+    "axios": "^1.3.4",
     "core-js": "^3.6.5",
+    "discord-oauth2": "^2.11.0",
     "dotenv": "^16.0.3",
+    "js-cookie": "^3.0.1",
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -55,7 +59,8 @@
     "@nrwl/workspace": "15.4.5",
     "@testing-library/react": "13.4.0",
     "@types/jest": "28.1.1",
-    "@types/node": "18.7.1",
+    "@types/js-cookie": "^3.0.3",
+    "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
