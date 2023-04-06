@@ -5,29 +5,13 @@ import {
   CardContent,
   Divider,
   Typography,
+  ButtonProps,
 } from '@mui/material';
-import { FC, ReactNode } from 'react';
-
-type FeatureCardAction = {
-  startIcon?: ReactNode;
-  endIcon?: ReactNode;
-  variant?: 'text' | 'outlined' | 'contained';
-  onClick?: () => unknown;
-  text: string;
-  key: string;
-  color?:
-    | 'inherit'
-    | 'primary'
-    | 'secondary'
-    | 'success'
-    | 'error'
-    | 'info'
-    | 'warning';
-};
+import { FC } from 'react';
 
 type Props = {
   title: string;
-  actions: FeatureCardAction[];
+  actions: (ButtonProps & { key: string; text: string })[];
 };
 
 const FeatureMenuCard: FC<Props> = ({ title, actions }) => {
@@ -49,23 +33,17 @@ const FeatureMenuCard: FC<Props> = ({ title, actions }) => {
           }}
         />
         <Box m={5}>
-          {actions.map(
-            ({ key, startIcon, endIcon, variant, onClick, text, color }) => (
-              <Button
-                sx={{
-                  m: 3,
-                }}
-                key={key}
-                startIcon={startIcon}
-                endIcon={endIcon}
-                variant={variant || 'contained'}
-                color={color || 'primary'}
-                onClick={onClick}
-              >
-                {text}
-              </Button>
-            )
-          )}
+          {actions.map(({ key, text, ...buttonProps }) => (
+            <Button
+              sx={{
+                m: 3,
+              }}
+              key={key}
+              {...buttonProps}
+            >
+              {text}
+            </Button>
+          ))}
         </Box>
       </CardContent>
     </Card>

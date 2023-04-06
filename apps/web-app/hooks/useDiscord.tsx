@@ -1,7 +1,7 @@
 import DiscordOAuthConfig from '@/interfaces/discordOAuthConfig';
 import DiscordOAuth from 'discord-oauth2';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 const useDiscord = (config: DiscordOAuthConfig) => {
   const { push } = useRouter();
@@ -15,18 +15,15 @@ const useDiscord = (config: DiscordOAuthConfig) => {
     [config]
   );
 
-  const login = useMemo(
-    () => () => {
-      const authUrl = oauth.generateAuthUrl({
-        scope: ['guilds'],
-      });
-      push(authUrl);
-    },
-    [oauth, push]
-  );
+  const login = useCallback(() => {
+    const authUrl = oauth.generateAuthUrl({
+      scope: ['guilds'],
+    });
+    push(authUrl);
+  }, [oauth, push]);
 
-  const getAccessToken = useMemo(
-    () => async (code: string) => {
+  const getAccessToken = useCallback(
+    async (code: string) => {
       const { access_token } = await oauth.tokenRequest({
         code,
         scope: 'guilds',

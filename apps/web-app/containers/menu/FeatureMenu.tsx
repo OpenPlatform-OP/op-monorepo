@@ -43,12 +43,14 @@ const FeatureMenu: FC<Props> = ({ discordOAuthConfig }) => {
               text: 'Discord Login',
               startIcon: <AssignmentIndIcon />,
               onClick: discordLogin,
+              variant: 'contained',
             },
             {
               key: 'get-token-in-cookie',
               text: 'Get Token in Cookie',
               startIcon: <KeyIcon />,
               onClick: () => alert(token.get()),
+              variant: 'contained',
             },
           ]}
         />
