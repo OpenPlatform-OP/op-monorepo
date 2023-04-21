@@ -13,7 +13,9 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "paths": {
-      "@/*": ["apps/web-api/*"]
+      "@/*": ["apps/web-api/*"],
+      "@model": ["libs/model/src/index.ts"],
+      "@nest": ["libs/nest/src/index.ts"]
     }
   }
 }

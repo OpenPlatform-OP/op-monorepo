@@ -1,6 +1,7 @@
 name: Core BE CD
 
 on:
+  workflow_dispatch:
   schedule:
     # trigger everyday 06:00 am UTC+8
     - cron: '0 22 * * *'

@@ -1,11 +1,11 @@
-import { AppConfig } from './../services/config.service';
+import { AppConfig } from '../../services/config.service';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { AppController } from './app.controller';
-import { AppService } from '../services/app.service';
+import { AppController } from '../app.controller';
+import { AppService } from '../../services/app.service';
 import { ConfigModule } from '@nestjs/config';
-import configuration from '../configuration';
-import { Env } from '../enums/env.enum';
+import configuration from '../../configuration';
+import { Env } from '../../enums/env.enum';
 
 describe('AppController', () => {
   let _app: TestingModule;

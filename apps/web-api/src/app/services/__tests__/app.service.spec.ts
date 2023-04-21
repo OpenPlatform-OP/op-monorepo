@@ -1,9 +1,9 @@
-import { AppConfig } from './config.service';
+import { AppConfig } from '../config.service';
 import { Test } from '@nestjs/testing';
-import { AppService } from './app.service';
+import { AppService } from '../app.service';
 import { ConfigModule } from '@nestjs/config';
-import configuration from '../configuration';
-import { Env } from '../enums/env.enum';
+import configuration from '../../configuration';
+import { Env } from '../../enums/env.enum';
 
 describe('AppService', () => {
   let service: AppService;
