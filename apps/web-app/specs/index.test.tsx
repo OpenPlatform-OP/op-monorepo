@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import Index from '../pages/index';
+import Index from '../pages';
 
-describe('Index', () => {
-  it('should render successfully', () => {
+describe('pages > index', () => {
+  it('should render feature menu', () => {
     const { baseElement } = render(<Index />);
     expect(baseElement).toBeTruthy();
   });

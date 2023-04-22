@@ -1,16 +1,12 @@
-import { Box, Button, Link, Typography } from '@mui/material';
 import { ReactElement } from 'react';
-import { NextPageWithProps } from './_app';
+import { Container } from '@mui/material';
+import FeatureMenu from '@/containers/menu/FeatureMenu';
 
-const Index: NextPageWithProps = () => {
+const Index = () => {
   return (
-    <Box>
-      <Button>
-        <Link href="/home">
-          <Typography variant="h2">Home Page!</Typography>
-        </Link>
-      </Button>
-    </Box>
+    <Container fixed>
+      <FeatureMenu />
+    </Container>
   );
 };
 

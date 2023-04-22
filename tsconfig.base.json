@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@op-monorepo/base-ui": ["libs/base-ui/src/index.ts"],
+      "@op-monorepo/model": ["libs/model/src/index.ts"],
+      "@op-monorepo/nest": ["libs/nest/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

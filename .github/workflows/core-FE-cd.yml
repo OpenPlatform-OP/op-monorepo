@@ -1,6 +1,7 @@
 name: Core FE CD
 
 on:
+  workflow_dispatch:
   schedule:
     # trigger everyday 06:00 am UTC+8
     - cron: '0 22 * * *'
@@ -32,8 +33,8 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v4
         with:
-          file: ./web-app-artifact/apps/web-app/Dockerfile
-          context: ./web-app-artifact
+          file: ./web-app-artifact-${{ steps.short-sha.outputs.sha }}/apps/web-app/Dockerfile
+          context: ./web-app-artifact-${{ steps.short-sha.outputs.sha }}
           push: true
           tags: ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_FE }}:${{ steps.short-sha.outputs.sha }}
   Deploy-Image-Stage:
@@ -61,10 +62,6 @@ jobs:
           SERVER_SSH_HOST: ${{ secrets.SERVER_SSH_HOST}}
           SERVER_SSH_USER: ${{ secrets.SERVER_SSH_USER}}
           SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
-      # - name: Install ssh
-      #   run: |
-      #     apt-get update
-      #     apt-get -y install openssh-client
       - name: Server login docker
         run: ssh ec2 'docker login ${{ vars.REGISTRY_HOST }} -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_TOKEN }}'
       - name: Server pull new image
