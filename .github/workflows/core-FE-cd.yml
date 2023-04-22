@@ -69,6 +69,14 @@ jobs:
       - name: Server remove previous container
         run: ssh ec2 'docker rm -f ${{ vars.REGISTRY_PROJECT_CORE_FE }}'
       - name: Server start container
-        run: ssh ec2 'docker run -it -d --name ${{ vars.REGISTRY_PROJECT_CORE_FE }} -p 3000:3000 ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_FE }}:${{ steps.short-sha.outputs.sha }}'
+        run: ssh ec2 'docker run -it -d
+          --name ${{ vars.REGISTRY_PROJECT_CORE_FE }}
+          -p 3000:3000
+          -e ENV=$ENV
+          -e NEXT_PUBLIC_BACKEND_ENDPOINT=$NEXT_PUBLIC_BACKEND_ENDPOINT
+          ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_FE }}:${{ steps.short-sha.outputs.sha }}'
+        env:
+          ENV: ${{ vars.ENV }}
+          NEXT_PUBLIC_BACKEND_ENDPOINT: ${{ vars.NEXT_PUBLIC_BACKEND_ENDPOINT }}
       - name: Server clear not-using image
         run: ssh ec2 'docker image prune -a -f'
