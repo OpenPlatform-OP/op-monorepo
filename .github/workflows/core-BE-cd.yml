@@ -70,7 +70,7 @@ jobs:
         run: ssh ec2 'docker rm -f ${{ vars.REGISTRY_PROJECT_CORE_BE }}'
       - name: Server start container
         run: ssh ec2 'docker run -it -d
-          --name web-api
+          --name ${{ vars.REGISTRY_PROJECT_CORE_BE }}
           -e ENV=${{ vars.ENV }}
           -e CORE_BE_PORT=${{ vars.CORE_BE_PORT }}
           -e DISCORD_OAUTH_CLIENT_ID=${{ secrets.DISCORD_OAUTH_CLIENT_ID }}
