@@ -79,6 +79,6 @@ jobs:
           -e MONGO_CONNECTION=${{ secrets.MONGO_CONNECTION }}
           -e JWT_KEY=${{ secrets.JWT_KEY }}
           -p 3001:${{ vars.CORE_BE_PORT }}
-          ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_FE }}:${{ steps.short-sha.outputs.sha }}'
+          ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_BE }}:${{ steps.short-sha.outputs.sha }}'
       - name: Server clear not-using image
         run: ssh ec2 'docker image prune -a -f'
