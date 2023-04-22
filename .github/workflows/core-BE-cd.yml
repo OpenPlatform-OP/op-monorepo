@@ -59,13 +59,9 @@ jobs:
             StrictHostKeyChecking no
           END
         env:
-          SERVER_SSH_HOST: ${{ secrets.SERVER_SSH_HOST}}
-          SERVER_SSH_USER: ${{ secrets.SERVER_SSH_USER}}
+          SERVER_SSH_HOST: ${{ secrets.SERVER_SSH_HOST }}
+          SERVER_SSH_USER: ${{ secrets.SERVER_SSH_USER }}
           SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
-      # - name: Install ssh
-      #   run: |
-      #     apt-get update
-      #     apt-get -y install openssh-client
       - name: Server login docker
         run: ssh ec2 'docker login ${{ vars.REGISTRY_HOST }} -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_TOKEN }}'
       - name: Server pull new image
@@ -75,22 +71,14 @@ jobs:
       - name: Server start container
         run: ssh ec2 'docker run -it -d
           --name web-api
-          -e ENV=$ENV
-          -e CORE_BE_PORT=$CORE_BE_PORT
-          -e DISCORD_OAUTH_CLIENT_ID=$DISCORD_OAUTH_CLIENT_ID
-          -e DISCORD_OAUTH_CLIENT_SECRET=$DISCORD_OAUTH_CLIENT_SECRET
-          -e DISCORD_OAUTH_REDIRECT_URI=$DISCORD_OAUTH_REDIRECT_URI
-          -e MONGO_CONNECTION=$MONGO_CONNECTION
-          -e JWT_KEY=$JWT_KEY
-          -p 3001:$CORE_BE_PORT
+          -e ENV=${{ vars.ENV }}
+          -e CORE_BE_PORT=${{ vars.CORE_BE_PORT }}
+          -e DISCORD_OAUTH_CLIENT_ID=${{ secrets.DISCORD_OAUTH_CLIENT_ID }}
+          -e DISCORD_OAUTH_CLIENT_SECRET=${{ secrets.DISCORD_OAUTH_CLIENT_SECRET }}
+          -e DISCORD_OAUTH_REDIRECT_URI=${{ secrets.DISCORD_OAUTH_REDIRECT_URI }}
+          -e MONGO_CONNECTION=${{ secrets.MONGO_CONNECTION }}
+          -e JWT_KEY=${{ secrets.JWT_KEY }}
+          -p 3001:${{ vars.CORE_BE_PORT }}
           ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_FE }}:${{ steps.short-sha.outputs.sha }}'
-        env:
-          ENV: ${{ vars.ENV }}
-          CORE_BE_PORT: ${{ vars.CORE_BE_PORT }}
-          DISCORD_OAUTH_CLIENT_ID: ${{ secrets.DISCORD_OAUTH_CLIENT_ID }}
-          DISCORD_OAUTH_CLIENT_SECRET: ${{ secrets.DISCORD_OAUTH_CLIENT_SECRET }}
-          DISCORD_OAUTH_REDIRECT_URI: ${{ secrets.DISCORD_OAUTH_REDIRECT_URI }}
-          MONGO_CONNECTION: ${{ secrets.MONGO_CONNECTION }}
-          JWT_KEY: ${{ secrets.JWT_KEY }}
       - name: Server clear not-using image
         run: ssh ec2 'docker image prune -a -f'
