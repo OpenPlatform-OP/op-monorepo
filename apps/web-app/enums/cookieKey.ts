@@ -1,5 +1,5 @@
 enum CookieKey {
-  TOKEN = 'op-token',
+  TOKEN = '_op_token',
 }
 
 export default CookieKey;

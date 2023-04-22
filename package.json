@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "dev:all": "nx run-many --target=serve --projects=web-app,web-api",
+    "dev": "nx run-many --target=serve --projects=web-app,web-api",
     "dev:app": "nx run web-app:serve",
     "dev:api": "nx run web-api:serve",
     "build:app": "nx run web-app:build:production",
@@ -36,6 +36,7 @@
     "core-js": "^3.6.5",
     "discord-oauth2": "^2.11.0",
     "dotenv": "^16.0.3",
+    "http-proxy-middleware": "^2.0.6",
     "js-cookie": "^3.0.1",
     "mongoose": "^7.0.4",
     "next": "13.1.1",

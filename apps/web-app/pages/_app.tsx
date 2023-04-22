@@ -8,6 +8,9 @@ import AppLayout from '@/layouts/AppLayout';
 import { AppProps } from 'next/app';
 import { ReactElement, ReactNode } from 'react';
 import { NextPage } from 'next';
+import AxiosProvider from '@/components/provider/AxiosProvider';
+import AuthProvider from '@/components/provider/AuthProvider';
+import Startup from '@/containers/util/Startup';
 
 export type NextPageWithProps<P = unknown, IP = P> = NextPage<P, IP> & {
   getMainLayout?: (page: ReactElement) => ReactNode;
@@ -29,8 +32,12 @@ function CustomApp({ Component, pageProps }: AppWithProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ThemeProvider theme={createTheme(theme)}>
-        <CssBaseline />
-        {getMainLayout(<Component {...pageProps} />)}
+        <AxiosProvider>
+          <AuthProvider>
+            <CssBaseline />
+            <Startup>{getMainLayout(<Component {...pageProps} />)}</Startup>
+          </AuthProvider>
+        </AxiosProvider>
       </ThemeProvider>
     </>
   );

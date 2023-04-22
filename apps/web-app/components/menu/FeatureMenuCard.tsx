@@ -7,10 +7,10 @@ import {
   Typography,
   ButtonProps,
 } from '@mui/material';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 type Props = {
-  title: string;
+  title?: string | ReactNode;
   actions: (ButtonProps & { key: string; text: string })[];
 };
 
@@ -24,14 +24,18 @@ const FeatureMenuCard: FC<Props> = ({ title, actions }) => {
       }}
     >
       <CardContent>
-        <Typography variant="h4" component="h4">
-          {title}
-        </Typography>
-        <Divider
-          sx={{
-            mt: 2,
-          }}
-        />
+        {title && (
+          <>
+            <Typography variant="h4" component="h4">
+              {title}
+            </Typography>
+            <Divider
+              sx={{
+                mt: 2,
+              }}
+            />
+          </>
+        )}
         <Box m={5}>
           {actions.map(({ key, text, ...buttonProps }) => (
             <Button

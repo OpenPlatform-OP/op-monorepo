@@ -1,44 +1,33 @@
-import { NextPageWithProps } from '../_app';
-import useDiscord from '@/hooks/useDiscord';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect } from 'react';
 
 import { Spinner } from '@base-ui';
-import getDiscordOAuthConfig from '@/utils/discord';
-import DiscordOAuthConfig from '@/interfaces/discordOAuthConfig';
-import { GetServerSidePropsResult } from 'next';
-import useCookie from '@/hooks/useCookie';
+import useAuth from '@/hooks/useAuth';
+import useAuthCtx from '@/hooks/context/useAuth';
+import { LoginType } from '@model';
 
-type ServerSideProps = {
-  discordOAuthConfig: DiscordOAuthConfig;
-};
-
-const Discord: NextPageWithProps<ServerSideProps> = ({
-  discordOAuthConfig,
-}) => {
+const Discord = () => {
+  const { signIn } = useAuth();
+  const { setJwtToken } = useAuthCtx();
   const {
-    query: { code },
+    query: { code, state },
     push,
-    isReady,
   } = useRouter();
 
-  const { getAccessToken } = useDiscord(discordOAuthConfig);
-  const { token: tokeOpt } = useCookie();
-
   useEffect(() => {
-    if (!isReady) return;
-
     (async function () {
-      if (code) {
-        tokeOpt.set(await getAccessToken(code as string));
-      } else {
-        // TODO: Invalid code display
-        alert('Invalid Code!');
+      if (code && state) {
+        const token = await signIn({
+          code: code as string,
+          state: state as string,
+          loginType: LoginType.DISCORD,
+        });
+        setJwtToken(token);
+        push('/');
       }
-      push('/');
     })();
-  }, [isReady, code, getAccessToken, push, tokeOpt]);
+  }, [code, state]);
 
   return (
     <Box
@@ -55,14 +44,5 @@ const Discord: NextPageWithProps<ServerSideProps> = ({
 };
 
 Discord.getMainLayout = (page: ReactElement) => page;
-
-export const getServerSideProps =
-  (): GetServerSidePropsResult<ServerSideProps> => {
-    return {
-      props: {
-        discordOAuthConfig: getDiscordOAuthConfig(),
-      },
-    };
-  };
 
 export default Discord;

@@ -21,7 +21,7 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   });
 
-  const port = process.env.PORT || DEFAULT_PORT;
+  const port = process.env.CORE_BE_PORT || DEFAULT_PORT;
   await app.listen(port);
 
   Logger.log(

@@ -14,7 +14,8 @@
     "types": ["jest", "node"],
     "paths": {
       "@/*": ["apps/web-app/*"],
-      "@base-ui": ["libs/base-ui/src/index.ts"]
+      "@base-ui": ["libs/base-ui/src/index.ts"],
+      "@model": ["libs/model/src/index.ts"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],

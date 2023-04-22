@@ -62,7 +62,7 @@ export class DiscordService {
           ({
             uid: data.user.id,
             userName: data.user.username,
-            avatar: data.user.avatar,
+            avatar: `https://cdn.discordapp.com/avatars/${data.user.id}/${data.user.avatar}`,
             loginType: LoginType.DISCORD,
           } as ThirdPartyUserInfo)
       )

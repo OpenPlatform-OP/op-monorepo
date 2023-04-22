@@ -1,18 +1,21 @@
 name: Core FE CI
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - 'master'
     paths:
       - 'apps/web-app/**'
       - 'libs/base-ui/**'
+      - 'libs/model/**'
   pull_request:
     branches:
       - 'master'
     paths:
       - 'apps/web-app/**'
       - 'libs/base-ui/**'
+      - 'libs/model/**'
 
 jobs:
   CI-Stage:
@@ -20,6 +23,11 @@ jobs:
     steps:
       - name: Checkout to project
         uses: actions/checkout@v3
+      - name: Get short sha
+        uses: benjlevesque/short-sha@v2.1
+        id: short-sha
+        with:
+          length: 7
       - name: Set up pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -37,10 +45,13 @@ jobs:
         run: pnpm test:app
       - name: Build production code
         run: pnpm build:app
+        env:
+          ENV: ${{ vars.ENV }}
+          NEXT_PUBLIC_BACKEND_ENDPOINT: ${{ vars.NEXT_PUBLIC_BACKEND_ENDPOINT }}
       - name: 'Upload artifact'
         uses: actions/upload-artifact@v3
         with:
-          name: web-app-artifact
+          name: web-app-artifact-${{ steps.short-sha.outputs.sha }}
           path: |
             .
             !node_modules

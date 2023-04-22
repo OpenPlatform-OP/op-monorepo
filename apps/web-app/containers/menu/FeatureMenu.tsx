@@ -1,20 +1,17 @@
 import { FC } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Avatar, Box, Tooltip, Typography } from '@mui/material';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
-import KeyIcon from '@mui/icons-material/Key';
+import LogoutIcon from '@mui/icons-material/Logout';
 
-import DiscordOAuthConfig from '@/interfaces/discordOAuthConfig';
-import useDiscord from '@/hooks/useDiscord';
-import useCookie from '@/hooks/useCookie';
 import FeatureMenuCard from '@/components/menu/FeatureMenuCard';
+import useDiscord from '@/hooks/useDiscord';
+import useAuth from '@/hooks/useAuth';
+import useAuthCtx from '@/hooks/context/useAuth';
 
-type Props = {
-  discordOAuthConfig: DiscordOAuthConfig;
-};
-
-const FeatureMenu: FC<Props> = ({ discordOAuthConfig }) => {
-  const { login: discordLogin } = useDiscord(discordOAuthConfig);
-  const { token } = useCookie();
+const FeatureMenu: FC = () => {
+  const { getDiscordOAuthEndpoint } = useDiscord();
+  const { userInfo } = useAuthCtx();
+  const { signOut } = useAuth();
 
   return (
     <Box
@@ -36,21 +33,36 @@ const FeatureMenu: FC<Props> = ({ discordOAuthConfig }) => {
         }}
       >
         <FeatureMenuCard
-          title="Auth Feature"
+          title={
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              Auth Feature
+              {userInfo && (
+                <Tooltip
+                  title={userInfo.userName}
+                  placement="top"
+                  sx={{ ml: 5, cursor: 'pointer' }}
+                >
+                  <Avatar alt="Avatar" src={userInfo.avatar} />
+                </Tooltip>
+              )}
+            </Box>
+          }
           actions={[
             {
               key: 'discord-login',
               text: 'Discord Login',
               startIcon: <AssignmentIndIcon />,
-              onClick: discordLogin,
+              onClick: getDiscordOAuthEndpoint,
               variant: 'contained',
+              disabled: userInfo !== null && userInfo !== undefined,
             },
             {
-              key: 'get-token-in-cookie',
-              text: 'Get Token in Cookie',
-              startIcon: <KeyIcon />,
-              onClick: () => alert(token.get()),
+              key: 'logout',
+              text: 'Logout',
+              startIcon: <LogoutIcon />,
+              onClick: signOut,
               variant: 'contained',
+              disabled: !(userInfo !== null && userInfo !== undefined),
             },
           ]}
         />

@@ -1,6 +1,4 @@
-export default interface IEnvironment {
+export interface IEnvironment {
   ENV: string;
-  DISCORD_CLIENT_ID: string;
-  DISCORD_CLIENT_SECRET: string;
-  DISCORD_REDIRECT_URI: string;
+  NEXT_PUBLIC_BACKEND_ENDPOINT: string;
 }
