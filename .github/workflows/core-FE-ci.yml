@@ -44,10 +44,7 @@ jobs:
       - name: Test Code
         run: pnpm test:app
       - name: Build production code
-        run: pnpm build:app
-        env:
-          ENV: ${{ vars.ENV }}
-          NEXT_PUBLIC_BACKEND_ENDPOINT: ${{ vars.NEXT_PUBLIC_BACKEND_ENDPOINT }}
+        run: ENV=${{ vars.ENV }} NEXT_PUBLIC_BACKEND_ENDPOINT=${{ vars.NEXT_PUBLIC_BACKEND_ENDPOINT }} pnpm build:app
       - name: 'Upload artifact'
         uses: actions/upload-artifact@v3
         with:
