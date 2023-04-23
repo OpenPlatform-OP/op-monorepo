@@ -17,7 +17,7 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://oppf.dev:3000/'],
+    origin: ['http://localhost:3000', 'https://oppf.dev/'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   });
 
