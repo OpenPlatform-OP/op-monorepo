@@ -7,6 +7,7 @@
     "dev:app": "nx run web-app:serve",
     "dev:api": "nx run web-api:serve",
     "build:app": "nx run web-app:build:production",
+    "build:app:no-cached": "nx run web-app:build:production --skip-nx-cache",
     "build:api": "nx run web-api:build:production",
     "start:app": "cd dist/apps/web-app && next start",
     "start:api": "cd dist/apps/web-api && NODE_ENV=production node main.js",
