@@ -40,12 +40,10 @@ jobs:
         run: pnpm lint:app
       - name: Test Code
         run: pnpm test:app
-      - name: Create .env file
+      - name: Build production code
         run: echo '
               ENV=${{ vars.ENV }}
-              \nNEXT_PUBLIC_BACKEND_ENDPOINT=${{ vars.NEXT_PUBLIC_BACKEND_ENDPOINT }}'> apps/web-app/.env.production
-      - name: Build production code
-        run: pnpm build:app
+              \nNEXT_PUBLIC_BACKEND_ENDPOINT=${{ vars.NEXT_PUBLIC_BACKEND_ENDPOINT }}'> apps/web-app/.env.local && pnpm build:app
       - name: 'Upload artifact'
         uses: actions/upload-artifact@v3
         if: ${{ github.event_name == 'push' }}
