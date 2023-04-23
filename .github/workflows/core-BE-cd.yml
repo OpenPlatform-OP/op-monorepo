@@ -33,8 +33,8 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v4
         with:
-          file: ./web-api-artifact-${{ steps.short-sha.outputs.sha }}/apps/web-api/Dockerfile
-          context: ./web-api-artifact-${{ steps.short-sha.outputs.sha }}
+          file: ./web-api-artifact/apps/web-api/Dockerfile
+          context: ./web-api-artifact
           push: true
           tags: ${{ vars.REGISTRY_HOST }}/${{ vars.REGISTRY_GROUP }}/${{ vars.REGISTRY_PROJECT_CORE_BE }}:${{ steps.short-sha.outputs.sha }}
   Deploy-Image-Stage:

@@ -23,11 +23,6 @@ jobs:
     steps:
       - name: Checkout to project
         uses: actions/checkout@v3
-      - name: Get short sha
-        uses: benjlevesque/short-sha@v2.1
-        id: short-sha
-        with:
-          length: 7
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -47,8 +42,9 @@ jobs:
         run: pnpm build:api
       - name: 'Upload artifact'
         uses: actions/upload-artifact@v3
+        if: ${{ github.event_name == 'push' }}
         with:
-          name: web-api-artifact-${{ steps.short-sha.outputs.sha }}
+          name: web-api-artifact
           path: |
             .
             !node_modules
