@@ -6,6 +6,7 @@ on:
     branches:
       - 'master'
     paths:
+      - '.github/workflows/core-FE-ci.yml'
       - 'apps/web-app/**'
       - 'libs/base-ui/**'
       - 'libs/model/**'
@@ -13,6 +14,7 @@ on:
     branches:
       - 'master'
     paths:
+      - '.github/workflows/core-FE-ci.yml'
       - 'apps/web-app/**'
       - 'libs/base-ui/**'
       - 'libs/model/**'
@@ -23,11 +25,6 @@ jobs:
     steps:
       - name: Checkout to project
         uses: actions/checkout@v3
-      - name: Get short sha
-        uses: benjlevesque/short-sha@v2.1
-        id: short-sha
-        with:
-          length: 7
       - name: Set up pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -43,12 +40,17 @@ jobs:
         run: pnpm lint:app
       - name: Test Code
         run: pnpm test:app
+      - name: Create .env file
+        run: echo '
+              ENV=${{ vars.ENV }}
+              \nNEXT_PUBLIC_BACKEND_ENDPOINT=${{ vars.NEXT_PUBLIC_BACKEND_ENDPOINT }}'> apps/web-app/.env.production
       - name: Build production code
-        run: ENV=${{ vars.ENV }} NEXT_PUBLIC_BACKEND_ENDPOINT=${{ vars.NEXT_PUBLIC_BACKEND_ENDPOINT }} pnpm build:app
+        run: pnpm build:app
       - name: 'Upload artifact'
         uses: actions/upload-artifact@v3
+        if: ${{ github.event_name == 'push' }}
         with:
-          name: web-app-artifact-${{ steps.short-sha.outputs.sha }}
+          name: web-app-artifact
           path: |
             .
             !node_modules
