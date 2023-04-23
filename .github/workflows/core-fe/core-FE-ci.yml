@@ -6,6 +6,7 @@ on:
     branches:
       - 'master'
     paths:
+      - '.github/workflows/core-fe/**'
       - 'apps/web-app/**'
       - 'libs/base-ui/**'
       - 'libs/model/**'
@@ -13,6 +14,7 @@ on:
     branches:
       - 'master'
     paths:
+      - '.github/workflows/core-fe/**'
       - 'apps/web-app/**'
       - 'libs/base-ui/**'
       - 'libs/model/**'
@@ -38,8 +40,12 @@ jobs:
         run: pnpm lint:app
       - name: Test Code
         run: pnpm test:app
+      - name: Create .env file
+        run: echo '
+              ENV=${{ vars.ENV }}
+              \nNEXT_PUBLIC_BACKEND_ENDPOINT=${{ vars.NEXT_PUBLIC_BACKEND_ENDPOINT }}'> apps/web-app/.env.production
       - name: Build production code
-        run: ENV=${{ vars.ENV }} NEXT_PUBLIC_BACKEND_ENDPOINT=${{ vars.NEXT_PUBLIC_BACKEND_ENDPOINT }} pnpm build:app
+        run: pnpm build:app
       - name: 'Upload artifact'
         uses: actions/upload-artifact@v3
         if: ${{ github.event_name == 'push' }}
