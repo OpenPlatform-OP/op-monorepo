@@ -6,7 +6,7 @@ on:
     branches:
       - 'master'
     paths:
-      - '.github/workflows/core-fe/**'
+      - '.github/workflows/core-FE-ci.yml'
       - 'apps/web-app/**'
       - 'libs/base-ui/**'
       - 'libs/model/**'
@@ -14,7 +14,7 @@ on:
     branches:
       - 'master'
     paths:
-      - '.github/workflows/core-fe/**'
+      - '.github/workflows/core-FE-ci.yml'
       - 'apps/web-app/**'
       - 'libs/base-ui/**'
       - 'libs/model/**'

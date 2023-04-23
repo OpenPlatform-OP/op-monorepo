@@ -6,7 +6,7 @@ on:
     branches:
       - 'master'
     paths:
-      - '.github/workflows/core-be/**'
+      - '.github/workflows/core-BE-ci.yml'
       - 'apps/web-api/**'
       - 'libs/model/**'
       - 'libs/nest/**'
@@ -14,7 +14,7 @@ on:
     branches:
       - 'master'
     paths:
-      - '.github/workflows/core-be/**'
+      - '.github/workflows/core-BE-ci.yml'
       - 'apps/web-api/**'
       - 'libs/model/**'
       - 'libs/nest/**'
