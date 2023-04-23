@@ -44,7 +44,7 @@ jobs:
         run: pnpm build:api
       - name: 'Upload artifact'
         uses: actions/upload-artifact@v3
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
         with:
           name: web-api-artifact
           path: |
