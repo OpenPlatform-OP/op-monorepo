@@ -17,7 +17,10 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/base-ui/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "codeCoverage": true,
+        "coverageDirectory": "coverage/libs/base-ui",
+        "coverageReporters": ["lcov", "html"]
       }
     }
   }
