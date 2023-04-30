@@ -1,5 +1,6 @@
-/* eslint-disable */
-export default {
+import type { Config } from 'jest';
+
+const config: Config = {
   displayName: 'base-ui',
   preset: '../../jest.preset.js',
   transform: {
@@ -7,5 +8,6 @@ export default {
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/react/babel'] }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/base-ui',
 };
+
+export default config;
