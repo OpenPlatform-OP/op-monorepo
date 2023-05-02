@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { styled } from '@mui/material/styles';
 import MuiButton, { ButtonProps } from '@mui/material/Button';
 
@@ -27,7 +28,7 @@ const CustomizedButton = styled(MuiButton)<ButtonProps>(
     }
 );
 
-export const Button: React.FC<ButtonProps> = (props) => {
+export const Button: FC<ButtonProps> = (props) => {
   return <CustomizedButton {...props} />;
 };
 
