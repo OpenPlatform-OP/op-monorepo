@@ -88,6 +88,23 @@ export class DiscordService {
       .pipe(map((res) => res.data));
   }
 
+  revokeToken(token: string): Observable<string> {
+    return this._http
+      .request<string>({
+        url: `${DISCORD_OAUTH_URI}/token/revoke`,
+        method: 'POST',
+        headers: {
+          'Content-Type': REQUEST_CONTENT_TYPE,
+        },
+        data: {
+          client_id: this.clientId,
+          client_secret: this.clientSecret,
+          token,
+        },
+      })
+      .pipe(map((res) => res.data));
+  }
+
   getUserProfile(accessToken: string): Observable<DiscordUserInfo> {
     return this._http
       .request<DiscordUserInfo>({

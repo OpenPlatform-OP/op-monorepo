@@ -71,6 +71,20 @@ export class AuthController {
     );
   }
 
+  @Post('logout')
+  logout(@Headers('Authorization') auth: string): Observable<string> {
+    return of(auth).pipe(
+      concatMap((auth) => {
+        return auth
+          ? this._discord.revokeToken(auth.split(' ')[1])
+          : throwError(() => new Error('Revoke Discord authentication error!'));
+      }),
+      catchError((error: Error) =>
+        throwError(() => new BadRequestException(error.message))
+      )
+    );
+  }
+
   @Get('/login/user')
   getUser(@Headers('Authorization') auth: string): Observable<UserInfo> {
     return this._auth.verifyJwtToken(auth.split(' ')[1]).pipe(
